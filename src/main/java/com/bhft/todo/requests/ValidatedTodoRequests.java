@@ -21,8 +21,8 @@ public class ValidatedTodoRequests extends Requests implements CrudInterface<Tod
         return todoRequests.create(entity)
                 .then()
                 .assertThat()
-                .statusCode(HttpStatus.SC_CREATED)
-                .extract().as(Object.class);
+                .statusCode(HttpStatus.SC_CREATED);
+
     }
 
     @Override
