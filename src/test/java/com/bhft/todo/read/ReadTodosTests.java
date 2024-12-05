@@ -5,6 +5,7 @@ import com.bhft.todo.models.Todo;
 import com.bhft.todo.requests.ValidatedTodoRequests;
 import com.bhft.todo.specs.RecSpecs;
 import io.qameta.allure.Description;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,6 +22,7 @@ public class ReadTodosTests extends BaseTest {
     @BeforeEach
     public void setupTestData() {
         unAuthValidatedTodoRequest = new ValidatedTodoRequests(RecSpecs.unAuthSpec());
+        softly = new SoftAssertions();
     }
 
     @BeforeEach
@@ -31,7 +33,7 @@ public class ReadTodosTests extends BaseTest {
     @Test
     @DisplayName("TC1: Получение пустого списка TODO, когда база данных пуста")
     public void testGetTodosWhenDatabaseIsEmpty() {
-        List<Todo> listOfTodo = unAuthValidatedTodoRequest.readAll(0, 10);
+        List<Todo> listOfTodo = unAuthValidatedTodoRequest.readAll();
         Assertions.assertTrue(listOfTodo.isEmpty());
     }
 
@@ -41,15 +43,57 @@ public class ReadTodosTests extends BaseTest {
         Todo newTodoFirst = generateTestData(Todo.class);
         Todo newTodoSecond = generateTestData(Todo.class);
 
-
         unAuthValidatedTodoRequest.create(newTodoFirst);
         unAuthValidatedTodoRequest.create(newTodoSecond);
 
-        List<Todo> listOfTodo = unAuthValidatedTodoRequest.readAll(0, 10);
-        Assertions.assertEquals(listOfTodo.size(), 2);
-        Assertions.assertEquals(newTodoFirst.getId(), listOfTodo.get(0).getId());
-        Assertions.assertEquals(newTodoSecond.getId(), listOfTodo.get(1).getId());
+        List<Todo> listOfTodo = unAuthValidatedTodoRequest.readAll();
+        softly.assertThat(listOfTodo.size()).isEqualTo(2);
+        softly.assertThat(newTodoFirst.getId()).isEqualTo(listOfTodo.get(0).getId());
+        softly.assertThat(newTodoSecond.getId()).isEqualTo(listOfTodo.get(1).getId());
+        softly.assertAll();
     }
+
+    @Test
+    @Description("TC3: Юзер получает список объектов, используя параметры offset=0 и limit=5 для пагинации")
+    public void testGetTodosWithOffset0AndLimit5() {
+        createMultipleTodo(10);
+
+        List<Todo> todos = unAuthValidatedTodoRequest.readAll(0, 5);
+
+        softly.assertThat(todos.size()).isLessThanOrEqualTo(5);
+        softly.assertThat(todos).isNotEmpty();
+        softly.assertAll();
+    }
+
+    @Test
+    @Description("TC4: Юзер получает список объектов, используя параметры offset=5 и limit=5 для пагинации")
+    public void testGetTodosWithOffset5AndLimit5() {
+        createMultipleTodo(6);
+
+        List<Todo> todos = unAuthValidatedTodoRequest.readAll(5, 5);
+
+        softly.assertThat(todos.size()).isLessThanOrEqualTo(1);
+        softly.assertThat(todos).isNotEmpty();
+        softly.assertAll();
+    }
+
+    @Test
+    @Description("TC5: Юзер получает весь список объектов, используя параметры offset=0 и limit=100 для пагинации")
+    public void testGetTodosWithOffset0AndLimit100() {
+        createMultipleTodo(25);
+
+        List<Todo> todos = unAuthValidatedTodoRequest.readAll(0, 100);
+
+        softly.assertThat(todos.size()).isLessThanOrEqualTo(25);
+        softly.assertThat(todos).isNotEmpty();
+        softly.assertAll();
+    }
+
+
+
+
+
+
 
 
 

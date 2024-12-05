@@ -1,7 +1,6 @@
 package com.bhft.todo.update;
 
 import com.bhft.todo.BaseTest;
-import com.bhft.todo.generators.TestDataGenerator;
 import com.bhft.todo.models.Todo;
 import com.bhft.todo.requests.TodoRequests;
 import com.bhft.todo.requests.ValidatedTodoRequests;
@@ -25,6 +24,7 @@ public class UpdateTodosTests extends BaseTest {
     public void setupTestData() {
         unAuthValidatedTodoRequest = new ValidatedTodoRequests(RecSpecs.unAuthSpec());
         unAuthTodoRequest = new TodoRequests(RecSpecs.unAuthSpec());
+        softly = new SoftAssertions();
     }
 
     @BeforeEach
@@ -33,34 +33,33 @@ public class UpdateTodosTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("TC1: Обновление существующего TODO корректными данными.")
+    @DisplayName("TC1: Юзер обновляет объект корректными данными.")
     public void testUpdateExistingTodoWithValidData() {
         Todo originalTodo = generateTestData(Todo.class);
         unAuthValidatedTodoRequest.create(originalTodo);
         Todo updatedTodo = generateTestData(Todo.class);
         unAuthValidatedTodoRequest.update(originalTodo.getId(), updatedTodo);
-        List<Todo> listTodo = unAuthValidatedTodoRequest.readAll(0, 10);
+        List<Todo> listTodo = unAuthValidatedTodoRequest.readAll();
 
-        SoftAssertions softAssertions = new SoftAssertions();
-        softAssertions.assertThat(listTodo.size())
+        softly.assertThat(listTodo.size())
                 .as("Check size of list")
                 .isEqualTo(1);
 
-        softAssertions.assertThat(updatedTodo.getText())
+        softly.assertThat(updatedTodo.getText())
                 .as("Check text of updated todo")
                 .isEqualTo(listTodo.get(0).getText());
 
-        softAssertions.assertThat(updatedTodo.isCompleted())
+        softly.assertThat(updatedTodo.isCompleted())
                 .as("Check completed status of updated todo")
                 .isEqualTo(listTodo.get(0).isCompleted());
-        softAssertions.assertAll();
+        softly.assertAll();
     }
 
     @Test
-    @DisplayName("TC2: Попытка обновления TODO с несуществующим id.")
+    @DisplayName("TC2: Юзер не может обновить объект с несуществующим id.")
     public void testUpdateNonExistentTodo() {
 
-        Todo updatedTodo = TestDataGenerator.generateTestData(Todo.class);
+        Todo updatedTodo = generateTestData(Todo.class);
         unAuthValidatedTodoRequest.create(updatedTodo);
 
         unAuthTodoRequest.update(updatedTodo.getId() - 1, updatedTodo)
@@ -69,16 +68,17 @@ public class UpdateTodosTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("TC3: Обновление TODO без изменения данных (передача тех же значений).")
+    @DisplayName("TC3: Юзер обновляет объект без изменения данных (передача тех же значений).")
     public void testUpdateTodoWithoutChangingData() {
-        Todo originalTodo = TestDataGenerator.generateTestData(Todo.class);
+        Todo originalTodo = generateTestData(Todo.class);
         unAuthValidatedTodoRequest.create(originalTodo);
+
         unAuthValidatedTodoRequest.update(originalTodo.getId(), originalTodo);
-        List<Todo> listTodo = unAuthValidatedTodoRequest.readAll(0, 10);
 
+        List<Todo> listTodo = unAuthValidatedTodoRequest.readAll();
 
-        SoftAssertions softAssertions = new SoftAssertions();
-        softAssertions.assertThat(originalTodo.getId()).isEqualTo(listTodo.get(0).getId());
-        softAssertions.assertThat(originalTodo.getText()).isEqualTo(listTodo.get(0).getText());
+        softly.assertThat(originalTodo.getId()).isEqualTo(listTodo.get(0).getId());
+        softly.assertThat(originalTodo.getText()).isEqualTo(listTodo.get(0).getText());
+        softly.assertAll();
     }
 }

@@ -1,5 +1,6 @@
 package com.bhft.todo.requests;
 
+import com.bhft.todo.config.Config;
 import com.bhft.todo.models.Todo;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -11,7 +12,7 @@ public class TodoRequests extends Requests implements CrudInterface<Todo>, Searc
 
     public TodoRequests(RequestSpecification reqSpec) {
         super(reqSpec);
-        ENDPOINT_URL = "/todos/";
+        ENDPOINT_URL = Config.getProperty("endpointURI");
     }
 
     @Override
@@ -44,5 +45,11 @@ public class TodoRequests extends Requests implements CrudInterface<Todo>, Searc
                 .queryParam("limit", limit)
                 .when()
                 .get(ENDPOINT_URL);
+    }
+
+    public Response readAll() {
+        return given()
+                .when()
+                .get(ENDPOINT_URL); // Запрос без query-параметров
     }
 }

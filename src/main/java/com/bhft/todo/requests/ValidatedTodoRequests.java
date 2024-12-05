@@ -1,5 +1,6 @@
 package com.bhft.todo.requests;
 
+import com.bhft.todo.config.Config;
 import com.bhft.todo.models.Todo;
 import io.restassured.specification.RequestSpecification;
 import org.apache.http.HttpStatus;
@@ -12,7 +13,7 @@ public class ValidatedTodoRequests extends Requests implements CrudInterface<Tod
 
     public ValidatedTodoRequests(RequestSpecification reqSpec) {
         super(reqSpec);
-        ENDPOINT_URL = "/todos/";
+        ENDPOINT_URL = Config.getProperty("endpointURI");
         todoRequests = new TodoRequests(reqSpec);
     }
 
@@ -22,7 +23,6 @@ public class ValidatedTodoRequests extends Requests implements CrudInterface<Tod
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_CREATED);
-
     }
 
     @Override
@@ -44,6 +44,14 @@ public class ValidatedTodoRequests extends Requests implements CrudInterface<Tod
     @Override
     public List<Todo> readAll(int offset, int limit) {
         Todo[] todos = todoRequests.readAll(offset, limit)
+                .then()
+                .statusCode(HttpStatus.SC_OK)
+                .extract().as(Todo[].class);
+        return List.of(todos);
+    }
+
+    public List<Todo> readAll() {
+        Todo[] todos = todoRequests.readAll()
                 .then()
                 .statusCode(HttpStatus.SC_OK)
                 .extract().as(Todo[].class);
