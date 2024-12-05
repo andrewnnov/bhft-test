@@ -7,6 +7,7 @@ import com.bhft.todo.specs.RecSpecs;
 import io.qameta.allure.Description;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -28,14 +29,14 @@ public class ReadTodosTests extends BaseTest {
     }
 
     @Test
-    @Description("TC1: Получение пустого списка TODO, когда база данных пуста")
+    @DisplayName("TC1: Получение пустого списка TODO, когда база данных пуста")
     public void testGetTodosWhenDatabaseIsEmpty() {
         List<Todo> listOfTodo = unAuthValidatedTodoRequest.readAll(0, 10);
         Assertions.assertTrue(listOfTodo.isEmpty());
     }
 
     @Test
-    @Description("TC2: Получение списка TODO, когда база данных не пуста")
+    @DisplayName("TC2: Получение списка TODO, когда база данных не пуста")
     public void testGetTodosWhenDatabaseIsNOTEmpty() {
         Todo newTodoFirst = generateTestData(Todo.class);
         Todo newTodoSecond = generateTestData(Todo.class);
