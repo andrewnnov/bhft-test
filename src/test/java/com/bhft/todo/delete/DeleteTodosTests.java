@@ -15,17 +15,19 @@ import java.util.List;
 public class DeleteTodosTests {
 
     private ValidatedTodoRequests authValidatedTodoRequests;
+    private TodoRequests unAuthTodoRequest;
 
 
     @BeforeEach
     public void setupTestData() {
         authValidatedTodoRequests = new ValidatedTodoRequests(RecSpecs.authSpec());
+        unAuthTodoRequest = new TodoRequests(RecSpecs.unAuthSpec());
     }
 
     @Test
     @DisplayName("TC1: Успешное удаление существующего TODO с корректной авторизацией.")
     public void testDeleteExistingTodoWithValidAuth() {
-        // Создаем TODO для удаления
+
         Todo todo = TestDataGenerator.generateTestData(Todo.class);
         authValidatedTodoRequests.create(todo);
         authValidatedTodoRequests.delete(todo.getId());
@@ -41,4 +43,18 @@ public class DeleteTodosTests {
         }
         Assertions.assertFalse(found, "Удаленная задача все еще присутствует в списке TODO");
     }
+
+    @Test
+    @DisplayName("TC2: Попытка удаления без авторизации.")
+    public void testDeleteExistingTodoWithoutAuth() {
+
+        Todo todo = TestDataGenerator.generateTestData(Todo.class);
+        authValidatedTodoRequests.create(todo);
+        unAuthTodoRequest.delete(todo.getId());
+        List<Todo> listTodo = authValidatedTodoRequests.readAll(0, 10);
+
+        Assertions.assertFalse(listTodo.isEmpty());
+    }
+
+
 }

@@ -63,7 +63,7 @@ public class UpdateTodosTests extends BaseTest {
         Todo updatedTodo = TestDataGenerator.generateTestData(Todo.class);
         unAuthValidatedTodoRequest.create(updatedTodo);
 
-        unAuthTodoRequest.update(updatedTodo.getId() - 1L, updatedTodo)
+        unAuthTodoRequest.update(updatedTodo.getId() - 1, updatedTodo)
                 .then()
                 .statusCode(HttpStatus.SC_NOT_FOUND);
     }
