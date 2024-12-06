@@ -4,6 +4,7 @@ import com.bhft.todo.config.Config;
 import com.bhft.todo.models.Todo;
 import com.bhft.todo.requests.ValidatedTodoRequests;
 import com.bhft.todo.specs.RecSpecs;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -20,6 +21,7 @@ public class BaseTest {
     private ValidatedTodoRequests authTodoRequest = new ValidatedTodoRequests(RecSpecs.authSpec());
     private ValidatedTodoRequests unAuthTodoRquest = new ValidatedTodoRequests(RecSpecs.unAuthSpec());
     protected SoftAssertions softly;
+    protected ObjectMapper objectMapper;
 
     @BeforeAll
     public static void setup() {

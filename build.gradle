@@ -25,7 +25,10 @@ dependencies {
             "org.junit.jupiter:junit-jupiter:5.9.2",
             "org.slf4j:slf4j-simple:$slf4jVersion",
             'org.projectlombok:lombok:1.18.34',
-            'org.assertj:assertj-core:3.24.2'
+            'org.assertj:assertj-core:3.24.2',
+            'org.java-websocket:Java-WebSocket:1.5.7',
+            'com.fasterxml.jackson.core:jackson-databind:2.14.1'
+
     )
 
     compileOnly 'org.projectlombok:lombok:1.18.34'
