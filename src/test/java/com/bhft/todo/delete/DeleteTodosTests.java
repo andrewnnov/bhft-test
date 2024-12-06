@@ -29,7 +29,7 @@ public class DeleteTodosTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("TC1: Авторизованный юзер может удалить объект")
+    @DisplayName("TC1: Авторизованный юзер удаляет объект")
     public void testDeleteExistingTodoWithValidAuth() {
         Todo todo = generateTestData(Todo.class);
         authValidatedTodoRequests.create(todo);

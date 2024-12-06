@@ -37,7 +37,7 @@ public class WebSocketTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Проверка получения уведомления о создании нового TODO")
+    @DisplayName("Юзер получает уведомление о создании нового TODO")
     public void testTodoCreationNotification() throws Exception {
         Todo todo = TestDataGenerator.generateTestData(Todo.class);
         unAuthValidatedTodoRequest.create(todo);

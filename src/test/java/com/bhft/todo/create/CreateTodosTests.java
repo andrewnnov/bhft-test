@@ -5,6 +5,7 @@ import com.bhft.todo.models.Todo;
 import com.bhft.todo.requests.TodoRequests;
 import com.bhft.todo.requests.ValidatedTodoRequests;
 import com.bhft.todo.specs.RecSpecs;
+import io.qameta.allure.Epic;
 import org.apache.http.HttpStatus;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Assertions;
@@ -34,7 +35,7 @@ public class CreateTodosTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("ТС1: Юзер может создать объект с валидными данными")
+    @DisplayName("ТС1: Юзер создает объект с валидными данными")
     public void testCreateTodoWithValidData() {
 
         Todo newTodo = generateTestData(Todo.class);
@@ -63,7 +64,7 @@ public class CreateTodosTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("ТС3: Юзер не может создать несколько объектов")
+    @DisplayName("ТС3: Юзер успешно создает несколько объектов")
     public void testCreateMultipleTodoWithValidData() {
         Todo newTodo = generateTestData(Todo.class);
         Todo newTodo2 = generateTestData(Todo.class);
