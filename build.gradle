@@ -27,7 +27,8 @@ dependencies {
             'org.projectlombok:lombok:1.18.34',
             'org.assertj:assertj-core:3.24.2',
             'org.java-websocket:Java-WebSocket:1.5.7',
-            'com.fasterxml.jackson.core:jackson-databind:2.14.1'
+            'com.fasterxml.jackson.core:jackson-databind:2.14.1',
+            'org.awaitility:awaitility:4.2.0'
 
     )
 

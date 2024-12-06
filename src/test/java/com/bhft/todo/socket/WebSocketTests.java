@@ -9,7 +9,10 @@ import com.bhft.todo.requests.ValidatedTodoRequests;
 import com.bhft.todo.specs.RecSpecs;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.SoftAssertions;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.*;
+
+import java.time.Duration;
 
 public class WebSocketTests extends BaseTest {
     private static WebSocketClient wsClient;
@@ -42,7 +45,7 @@ public class WebSocketTests extends BaseTest {
         Todo todo = TestDataGenerator.generateTestData(Todo.class);
         unAuthValidatedTodoRequest.create(todo);
 
-        String msg = wsClient.waitForMessage(5000);
+        String msg = wsClient.waitForMessage();
 
         TodoResponse response = objectMapper.readValue(msg, TodoResponse.class);
 
@@ -52,4 +55,6 @@ public class WebSocketTests extends BaseTest {
         softly.assertThat(todo.isCompleted()).isEqualTo(response.getData().isCompleted());
         softly.assertAll();
     }
+
+
 }
