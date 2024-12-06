@@ -15,6 +15,7 @@ import java.util.List;
 
 import static com.bhft.todo.generators.TestDataGenerator.generateTestData;
 
+@DisplayName("Тесты на обновление Todo")
 public class UpdateTodosTests extends BaseTest {
 
     private ValidatedTodoRequests unAuthValidatedTodoRequest;
@@ -33,7 +34,7 @@ public class UpdateTodosTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("TC1: Юзер обновляет объект корректными данными.")
+    @DisplayName("TC1: Юзер обновляет Todo корректными данными.")
     public void testUpdateExistingTodoWithValidData() {
         Todo originalTodo = generateTestData(Todo.class);
         unAuthValidatedTodoRequest.create(originalTodo);
@@ -56,7 +57,7 @@ public class UpdateTodosTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("TC2: Юзер не может обновить объект с несуществующим id.")
+    @DisplayName("TC2: Юзер не может обновить Todo с несуществующим id.")
     public void testUpdateNonExistentTodo() {
 
         Todo updatedTodo = generateTestData(Todo.class);
@@ -68,7 +69,7 @@ public class UpdateTodosTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("TC3: Юзер обновляет объект без изменения данных (передача тех же значений).")
+    @DisplayName("TC3: Юзер обновляет Todo без изменения данных (передача тех же значений).")
     public void testUpdateTodoWithoutChangingData() {
         Todo originalTodo = generateTestData(Todo.class);
         unAuthValidatedTodoRequest.create(originalTodo);

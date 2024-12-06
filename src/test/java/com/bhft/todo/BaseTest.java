@@ -5,6 +5,7 @@ import com.bhft.todo.models.Todo;
 import com.bhft.todo.requests.ValidatedTodoRequests;
 import com.bhft.todo.specs.RecSpecs;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.qameta.allure.Step;
 import io.restassured.RestAssured;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -34,6 +35,7 @@ public class BaseTest {
                 .forEach(todo -> authTodoRequest.delete(todo.getId()));
     }
 
+    @Step("create {count} Todos")
     public List<Todo> createMultipleTodo(int count) {
         return IntStream.range(0, count)
                 .mapToObj(i -> {

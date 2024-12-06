@@ -17,6 +17,7 @@ import java.util.List;
 
 import static com.bhft.todo.generators.TestDataGenerator.generateTestData;
 
+@DisplayName("Тесты на создание Todo")
 public class CreateTodosTests extends BaseTest {
     private ValidatedTodoRequests unAuthValidatedTodoRequests;
     private TodoRequests unAuthTodoRequest;
@@ -35,7 +36,7 @@ public class CreateTodosTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("ТС1: Юзер создает объект с валидными данными")
+    @DisplayName("ТС1: Юзер создает Todo с валидными данными")
     public void testCreateTodoWithValidData() {
 
         Todo newTodo = generateTestData(Todo.class);
@@ -47,7 +48,7 @@ public class CreateTodosTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("ТС2: Юзер не может создать объект с существующим id")
+    @DisplayName("ТС2: Юзер не может создать Todo с существующим id")
     public void testCreateResourceDuplicateShouldReturnConflict400() {
         Todo newTodo = generateTestData(Todo.class);
         unAuthValidatedTodoRequests.create(newTodo);
@@ -64,7 +65,7 @@ public class CreateTodosTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("ТС3: Юзер успешно создает несколько объектов")
+    @DisplayName("ТС3: Юзер успешно создает несколько Todos")
     public void testCreateMultipleTodoWithValidData() {
         Todo newTodo = generateTestData(Todo.class);
         Todo newTodo2 = generateTestData(Todo.class);

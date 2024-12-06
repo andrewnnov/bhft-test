@@ -15,6 +15,7 @@ import java.util.List;
 
 import static com.bhft.todo.generators.TestDataGenerator.generateTestData;
 
+@DisplayName("Тесты на чтение списка Todos")
 public class ReadTodosTests extends BaseTest {
 
     private ValidatedTodoRequests unAuthValidatedTodoRequest;
@@ -31,14 +32,14 @@ public class ReadTodosTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("TC1: Юзер получает пустой список объектов, когда база данных пуста")
+    @DisplayName("TC1: Юзер получает пустой список Todos, когда база данных пуста")
     public void testGetTodosWhenDatabaseIsEmpty() {
         List<Todo> listOfTodo = unAuthValidatedTodoRequest.readAll();
         Assertions.assertTrue(listOfTodo.isEmpty());
     }
 
     @Test
-    @DisplayName("TC2: Юзер получает список объектов, когда база данных не пуста")
+    @DisplayName("TC2: Юзер получает список Todos, когда база данных не пуста")
     public void testGetTodosWhenDatabaseIsNOTEmpty() {
         Todo newTodoFirst = generateTestData(Todo.class);
         Todo newTodoSecond = generateTestData(Todo.class);
@@ -54,7 +55,7 @@ public class ReadTodosTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("TC3: Юзер получает список объектов, используя параметры offset=0 и limit=5 для пагинации")
+    @DisplayName("TC3: Юзер получает список Todos, используя параметры offset=0 и limit=5 для пагинации")
     public void testGetTodosWithOffset0AndLimit5() {
         createMultipleTodo(10);
 
@@ -66,7 +67,7 @@ public class ReadTodosTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("TC4: Юзер получает список объектов, используя параметры offset=5 и limit=5 для пагинации")
+    @DisplayName("TC4: Юзер получает список Todos, используя параметры offset=5 и limit=5 для пагинации")
     public void testGetTodosWithOffset5AndLimit5() {
         createMultipleTodo(6);
 
@@ -78,7 +79,7 @@ public class ReadTodosTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("TC5: Юзер получает весь список объектов, используя параметры offset=0 и limit=100 для пагинации")
+    @DisplayName("TC5: Юзер получает весь список Todos, используя параметры offset=0 и limit=100 для пагинации")
     public void testGetTodosWithOffset0AndLimit100() {
         createMultipleTodo(25);
 

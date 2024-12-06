@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.*;
 
+@DisplayName("Тесты на получение сообщений Todo через WebSocket")
 public class WebSocketTests extends BaseTest {
     private static WebSocketClient wsClient;
     private static String wsUrl;
@@ -37,7 +38,7 @@ public class WebSocketTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Юзер получает уведомление о создании нового TODO")
+    @DisplayName("TC1: Юзер получает уведомление о создании нового TODO")
     public void testTodoCreationNotification() throws Exception {
         Todo todo = TestDataGenerator.generateTestData(Todo.class);
         unAuthValidatedTodoRequest.create(todo);

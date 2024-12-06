@@ -16,6 +16,7 @@ import java.util.List;
 
 import static com.bhft.todo.generators.TestDataGenerator.*;
 
+@DisplayName("Тесты на удаление Todo")
 public class DeleteTodosTests extends BaseTest {
 
     private ValidatedTodoRequests authValidatedTodoRequests;
@@ -29,7 +30,7 @@ public class DeleteTodosTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("TC1: Авторизованный юзер удаляет объект")
+    @DisplayName("TC1: Авторизованный юзер удаляет Todo")
     public void testDeleteExistingTodoWithValidAuth() {
         Todo todo = generateTestData(Todo.class);
         authValidatedTodoRequests.create(todo);
@@ -43,7 +44,7 @@ public class DeleteTodosTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("TC2: Неавторизованный юзер не может удалить объект")
+    @DisplayName("TC2: Неавторизованный юзер не может удалить Todo")
     public void testDeleteExistingTodoWithoutAuth() {
         Todo todo = generateTestData(Todo.class);
         authValidatedTodoRequests.create(todo);

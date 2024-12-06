@@ -2,6 +2,7 @@ package com.bhft.todo.requests;
 
 import com.bhft.todo.config.Config;
 import com.bhft.todo.models.Todo;
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
@@ -16,6 +17,7 @@ public class TodoRequests extends Requests implements CrudInterface<Todo>, Searc
     }
 
     @Override
+    @Step("create {entity}")
     public Response create(Todo entity) {
         return given()
                 .spec(reqSpec)
@@ -24,6 +26,7 @@ public class TodoRequests extends Requests implements CrudInterface<Todo>, Searc
     }
 
     @Override
+    @Step("update by id={id} {entity}")
     public Response update(long id, Todo entity) {
         return given()
                 .spec(reqSpec)
@@ -32,6 +35,7 @@ public class TodoRequests extends Requests implements CrudInterface<Todo>, Searc
     }
 
     @Override
+    @Step("delete by id={id}")
     public Response delete(long id) {
         return given()
                 .spec(reqSpec)
@@ -39,6 +43,7 @@ public class TodoRequests extends Requests implements CrudInterface<Todo>, Searc
     }
 
     @Override
+    @Step("readAll offset={offset} limit={limit}")
     public Response readAll(int offset, int limit) {
         return given()
                 .queryParam("offset", offset)
@@ -47,6 +52,7 @@ public class TodoRequests extends Requests implements CrudInterface<Todo>, Searc
                 .get(ENDPOINT_URL);
     }
 
+    @Step("readAll")
     public Response readAll() {
         return given()
                 .when()
