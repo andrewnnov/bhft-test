@@ -50,6 +50,6 @@ public class TodoRequests extends Requests implements CrudInterface<Todo>, Searc
     public Response readAll() {
         return given()
                 .when()
-                .get(ENDPOINT_URL); // Запрос без query-параметров
+                .get(ENDPOINT_URL);
     }
 }

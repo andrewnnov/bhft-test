@@ -6,8 +6,6 @@ import java.util.Random;
 public class TestDataGenerator {
     private static final Random RANDOM = new Random();
 
-    //сделать генератор для множественного вызова
-
     public static <T> T generateTestData(Class<T> clazz) {
         try {
             T instance = clazz.getDeclaredConstructor().newInstance();

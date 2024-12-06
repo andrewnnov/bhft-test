@@ -4,15 +4,12 @@ import com.bhft.todo.BaseTest;
 import com.bhft.todo.config.Config;
 import com.bhft.todo.generators.TestDataGenerator;
 import com.bhft.todo.models.Todo;
-import com.bhft.todo.models.TodoResponse;
+import com.bhft.todo.models.WebSocketResponse;
 import com.bhft.todo.requests.ValidatedTodoRequests;
 import com.bhft.todo.specs.RecSpecs;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.SoftAssertions;
-import org.awaitility.Awaitility;
 import org.junit.jupiter.api.*;
-
-import java.time.Duration;
 
 public class WebSocketTests extends BaseTest {
     private static WebSocketClient wsClient;
@@ -47,7 +44,7 @@ public class WebSocketTests extends BaseTest {
 
         String msg = wsClient.waitForMessage();
 
-        TodoResponse response = objectMapper.readValue(msg, TodoResponse.class);
+        WebSocketResponse response = objectMapper.readValue(msg, WebSocketResponse.class);
 
         softly.assertThat("new_todo").isEqualTo(response.getType());
         softly.assertThat(todo.getId()).isEqualTo(response.getData().getId());
@@ -55,6 +52,4 @@ public class WebSocketTests extends BaseTest {
         softly.assertThat(todo.isCompleted()).isEqualTo(response.getData().isCompleted());
         softly.assertAll();
     }
-
-
 }

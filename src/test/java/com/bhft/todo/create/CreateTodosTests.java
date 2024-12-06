@@ -79,8 +79,5 @@ public class CreateTodosTests extends BaseTest {
         softly.assertThat(listTodo.get(2).getText()).isEqualTo(newTodo3.getText());
         softly.assertThat(listTodo.size()).isEqualTo(3);
         softly.assertAll();
-
     }
-
-
 }

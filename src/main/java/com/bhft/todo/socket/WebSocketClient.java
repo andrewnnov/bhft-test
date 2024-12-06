@@ -11,8 +11,8 @@ import java.util.concurrent.CompletionStage;
 import java.util.concurrent.TimeUnit;
 
 public class WebSocketClient {
-    private static final long DEFAULT_TIMEOUT_MILLIS = 5000; // Тайм-аут по умолчанию
-    private static final long POLL_INTERVAL_MILLIS = 100;   // Интервал проверки
+    private static final long DEFAULT_TIMEOUT_MILLIS = 5000;
+    private static final long POLL_INTERVAL_MILLIS = 100;
     private WebSocket webSocket;
     private final LinkedBlockingQueue<String> messageQueue = new LinkedBlockingQueue<>();
 
@@ -42,7 +42,7 @@ public class WebSocketClient {
     }
 
     public String waitForMessage() throws InterruptedException {
-        final String[] result = new String[1]; // Используем массив для передачи значения из лямбда-функции
+        final String[] result = new String[1];
         Awaitility.await()
                 .atMost(DEFAULT_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
                 .pollInterval(POLL_INTERVAL_MILLIS, TimeUnit.MILLISECONDS)

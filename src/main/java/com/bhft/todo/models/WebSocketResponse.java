@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TodoResponse {
+public class WebSocketResponse {
     private String type;
     private Todo data;
 }
